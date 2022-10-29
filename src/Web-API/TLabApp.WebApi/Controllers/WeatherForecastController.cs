@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using TLabApp.WebApi.Controllers.AppBaseControllers;
 
 namespace TLabApp.WebApi.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    
+    public class WeatherForecastController : AppBaseController
     {
         private static readonly string[] Summaries = new[]
         {

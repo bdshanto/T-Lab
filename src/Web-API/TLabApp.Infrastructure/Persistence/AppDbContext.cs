@@ -14,8 +14,10 @@ namespace TLabApp.Infrastructure.Persistence
         public AppDbContext() : base()
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "TLabDb.db");
+            // var path = Environment.GetFolderPath(folder);
+            var root = Environment.CurrentDirectory;
+            DbPath = System.IO.Path.Join(root, "TLabDb.db");
+
         }
 
 

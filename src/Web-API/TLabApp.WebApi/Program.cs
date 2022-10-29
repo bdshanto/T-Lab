@@ -1,3 +1,6 @@
+using TLabApp.Application.DependencyServices;
+using TLabApp.Infrastructure.Persistence;
+
 namespace TLabApp.WebApi
 {
     public class Program
@@ -7,6 +10,7 @@ namespace TLabApp.WebApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddDependencyResolver();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
