@@ -17,6 +17,7 @@ namespace TLabApp.Infrastructure.Persistence
             // var path = Environment.GetFolderPath(folder);
             var root = Environment.CurrentDirectory;
             DbPath = System.IO.Path.Join(root, "TLabDb.db");
+           
 
         }
 

@@ -7,7 +7,7 @@ using TLabApp.Domain.Entities;
 
 namespace TLabApp.Infrastructure.Persistence
 {
-    internal class AppDbContextInitializer
+    public class AppDbContextInitializer
     {
         public static async Task AuditAbleSeed()
         {
@@ -50,6 +50,8 @@ namespace TLabApp.Infrastructure.Persistence
                 new(){Name = "SQL"},
             };
             await db.Skills.AddRangeAsync(skillList);
+
+            var isAdded = await db.SaveChangesAsync();
         }
     }
 }
