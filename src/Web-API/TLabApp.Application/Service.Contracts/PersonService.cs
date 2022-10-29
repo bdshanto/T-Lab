@@ -30,10 +30,11 @@ public class PersonService : IPersonService
             .Include(c => c.SkillPersonMapList).ThenInclude(c => c.Skill)
             .Select(c => new PersonDto()
             {
+                Id = c.Id,
                 Name = c.Name,
                 Skills = c.SkillPersonMapList.Select(d => d.Skill.Name).CommaSeparateString(),
                 CityId = c.CityId,
-                CityName = c.Name,
+                CityName = c.City.Name,
                 CountryId = c.City.CountryId,
                 CountryName = c.City.Country.Name,
                 ResumeUrl = c.ResumeUrl,
@@ -49,7 +50,7 @@ public class PersonService : IPersonService
     }
     public async Task<bool> Add(PersonDto dto)
     {
-       
+
         if (dto.FileExtensionValidate()) return false;
 
         var model = _iMapper.Map<Person>(dto);
@@ -66,13 +67,22 @@ public class PersonService : IPersonService
     public async Task<bool> Update(PersonDto dto)
     {
         var model = _iMapper.Map<Person>(dto);
-        _context.Update(model);
+        var skillMapped = await _context.SkillPersonMap.Where(c => c.PersonId == dto.Id).ToListAsync();
+
+        var addAble = new List<SkillPersonMap>();
+        var removeAble = new List<SkillPersonMap>();
+
+
+        addAble.AddRange(dto.SkillPersonMapList.Where(c => c.Id == 0).Select(c => _iMapper.Map<SkillPersonMap>(c)));
+        var addedIds = dto.SkillPersonMapList.Where(c => c.Id > 0).Select(c => c.Id).ToList();
+        removeAble.AddRange(skillMapped.Where(c => !addedIds.Contains(c.Id)));
+
+        _context.People.Update(model);
+        _context.SkillPersonMap.RemoveRange(removeAble);
+        await _context.SkillPersonMap.AddRangeAsync(addAble);
+
         return await _context.SaveChangesAsync() > 0;
     }
-
-
-
-
 
     public async Task<PersonDto> GetByIdAsync(int id)
     {
@@ -82,16 +92,30 @@ public class PersonService : IPersonService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        var isDeleted = _context.Database.ExecuteSqlRaw("delete from SkillPersonMap where PersonId = '{0}'", 1) > 0;
-        isDeleted = await _context.Database.ExecuteSqlRawAsync("delete from People where Id  = '{0}'", 1) > 0;
+
+        var isDeleted = _context.Database.ExecuteSqlRaw(string.Format("delete from SkillPersonMap where PersonId = '{0}'", id)) > 0;
+        isDeleted = await _context.Database.ExecuteSqlRawAsync(string.Format("delete from People where Id  = '{0}'", id)) > 0;
 
         return isDeleted;
     }
 
 
-    public async Task SaveLocalFile(string filePath, IFormFile file)
+    public async Task SaveLocalFile(string fileName, IFormFile file)
     {
-        await file.CopyToAsync(new FileStream(filePath, FileMode.Create));
+        var outputDir = Path.Combine(Environment.CurrentDirectory, "wwwroot", "Files");
+        try
+        {
+            if (!Directory.Exists(outputDir)) Directory.CreateDirectory(outputDir);
+            outputDir = Path.Combine(outputDir, fileName);
+
+            await using Stream fileStream = new FileStream(outputDir, FileMode.Create);
+            await file.CopyToAsync(fileStream);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
 }

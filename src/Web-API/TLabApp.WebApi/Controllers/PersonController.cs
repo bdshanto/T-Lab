@@ -21,8 +21,7 @@ public class PersonController : AppBaseController
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(PersonDto), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Post([FromBody] PersonDto dto)
+    public async Task<IActionResult> Post([FromForm] PersonDto dto)
     {
         if (!ModelState.IsValid) return Ok(false);
         return Ok(await _iService.AddOrUpdate(dto));

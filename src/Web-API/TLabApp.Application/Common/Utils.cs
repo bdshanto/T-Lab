@@ -20,11 +20,18 @@ namespace TLabApp.Application.Common
         }
         public static string GenerateLocalUploadPath(IFormFile file)
         {
-            var folderName = Path.Combine("wwwroot", "Files");
-            if (!Directory.Exists(folderName)) Directory.CreateDirectory(folderName);
-            var uniqueFileName = DateTime.Now.ToString(CultureInfo.InvariantCulture) + file.FileName;
-            var filePath = Path.Combine(folderName, uniqueFileName);
-            return uniqueFileName;
+
+            var filePath = Path.Combine(DateTime.Now.ToString("u") + file.FileName);
+            return filePath.RemoveSpecialCharacters();
         }
+        public static string RemoveSpecialCharacters(this string str)
+        {
+            var sb = new StringBuilder();
+            foreach (var c in str)
+                if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '.' || c == '_')
+                    sb.Append(c);
+            return sb.ToString();
+        }
+
     }
 }
