@@ -14,16 +14,16 @@ public class PersonController : AppBaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetPersonList( )
+    public async Task<IActionResult> GetPersonList()
     {
         return Ok(await _iService.GetPersonListAsync());
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(PersonDto dto, CancellationToken ct)
+    public async Task<IActionResult> Post(PersonDto dto)
     {
         if (!ModelState.IsValid) return Ok(false);
-        return Ok(await _iService.AddOrUpdate(dto,ct));
+        return Ok(await _iService.AddOrUpdate(dto));
     }
     /*[HttpGet("get-skill-list")]
     public async Task<IActionResult> GetSkillList()
