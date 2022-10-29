@@ -10,7 +10,7 @@ namespace TLabApp.Infrastructure.Persistence
 {
     public class AppDbContext : DbContext
     {
-        public string DbPath { get; set; }
+        private string DbPath { get; set; }
         public AppDbContext() : base()
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;

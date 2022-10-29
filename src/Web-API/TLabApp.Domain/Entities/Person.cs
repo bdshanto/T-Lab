@@ -11,5 +11,5 @@ public sealed class Person : AuditAble
     public DateTime DoB { get; set; }
 
     public City City { get; set; }
-    public List<SkillPersonMap> Cities { get; } = new();
+    public List<SkillPersonMap> SkillPersonMapList { get; } = new();
 }

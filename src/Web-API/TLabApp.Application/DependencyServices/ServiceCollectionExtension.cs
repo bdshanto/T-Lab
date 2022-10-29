@@ -11,6 +11,7 @@ public static class ServiceCollectionExtension
     {
         services.AddSingleton<AppDbContext>();
         services.AddTransient<ICommonService, CommonService>();
+        services.AddTransient<IPersonService, PersonService>();
 
 
 
