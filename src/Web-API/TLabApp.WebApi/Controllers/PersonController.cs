@@ -13,21 +13,21 @@ public class PersonController : AppBaseController
         _iService = iService;
     }
 
-    [HttpGet("get-person-list")]
-    public async Task<IActionResult> GetPersonList()
+    [HttpGet]
+    public async Task<IActionResult> GetPersonList( )
     {
         return Ok(await _iService.GetPersonListAsync());
     }
 
-    /*[HttpGet("get-city-list-By-country-id")]
-    public async Task<IActionResult> GetCityListByCountryId(int countryId)
+    [HttpPost]
+    public async Task<IActionResult> Post(PersonDto dto, CancellationToken ct)
     {
-        if (countryId > 0 is false) return Ok(new List<CityDto>());
-        return Ok(await _iService.GetCityListByCountryIdAsync(countryId));
+        if (!ModelState.IsValid) return Ok(false);
+        return Ok(await _iService.AddOrUpdate(dto,ct));
     }
-    [HttpGet("get-skill-list")]
+    /*[HttpGet("get-skill-list")]
     public async Task<IActionResult> GetSkillList()
     {
         return Ok(await _iService.GetSkillListAsync());
-    }*/
+    } */
 }

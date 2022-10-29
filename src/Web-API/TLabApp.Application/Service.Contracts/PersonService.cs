@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TLabApp.Application.Common;
 using TLabApp.Application.Models;
 using TLabApp.Application.Service.IContracts;
+using TLabApp.Domain.Entities;
 using TLabApp.Infrastructure.Persistence;
 
 namespace TLabApp.Application.Service.Contracts;
@@ -9,9 +11,11 @@ namespace TLabApp.Application.Service.Contracts;
 public class PersonService : IPersonService
 {
     private readonly AppDbContext _context;
-    public PersonService(AppDbContext context)
+    private readonly IMapper _iMapper;
+    public PersonService(AppDbContext context, IMapper iMapper)
     {
         _context = context;
+        _iMapper = iMapper;
     }
 
 
@@ -30,8 +34,22 @@ public class PersonService : IPersonService
                 CountryName = c.City.Country.Name,
                 ResumeUrl = c.ResumeUrl,
                 DoB = c.DoB
-            })
-            .ToListAsync();
+            }).ToListAsync();
         return dataList;
+    }
+
+    public async Task<bool> AddOrUpdate(PersonDto dto)
+    {
+        var model = _iMapper.Map<Person>(dto);
+        if (dto.Id == 0)
+        {
+            await _context.AddAsync(model);
+        }
+        else
+        {
+            _context.Update(model);
+        }
+
+        return await _context.SaveChangesAsync() > 0;
     }
 }

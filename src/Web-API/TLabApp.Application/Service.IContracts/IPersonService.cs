@@ -5,4 +5,5 @@ namespace TLabApp.Application.Service.IContracts;
 public interface IPersonService
 {
     Task<ICollection<PersonDto>> GetPersonListAsync();
+    Task<bool> AddOrUpdate(PersonDto dto );
 }
