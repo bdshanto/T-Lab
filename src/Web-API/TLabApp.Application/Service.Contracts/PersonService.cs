@@ -1,10 +1,14 @@
-﻿using AutoMapper;
+﻿using System.Globalization;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 using TLabApp.Application.Common;
 using TLabApp.Application.Models;
 using TLabApp.Application.Service.IContracts;
 using TLabApp.Domain.Entities;
 using TLabApp.Infrastructure.Persistence;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TLabApp.Application.Service.Contracts;
 
@@ -40,18 +44,35 @@ public class PersonService : IPersonService
 
     public async Task<bool> AddOrUpdate(PersonDto dto)
     {
-        var model = _iMapper.Map<Person>(dto);
-        if (dto.Id == 0)
-        {
-            await _context.AddAsync(model);
-        }
-        else
-        {
-            _context.Update(model);
-        }
+        if (dto.Id == 0) return await Add(dto);
+        return await Update(dto);
+    }
+    public async Task<bool> Add(PersonDto dto)
+    {
+       
+        if (dto.FileExtensionValidate()) return false;
 
+        var model = _iMapper.Map<Person>(dto);
+        await _context.AddAsync(model);
+
+        var isAdded = await _context.SaveChangesAsync() > 0;
+        if (isAdded) await SaveLocalFile(model.ResumeUrl, dto.ResumeFile);
+
+        return isAdded;
+    }
+
+
+
+    public async Task<bool> Update(PersonDto dto)
+    {
+        var model = _iMapper.Map<Person>(dto);
+        _context.Update(model);
         return await _context.SaveChangesAsync() > 0;
     }
+
+
+
+
 
     public async Task<PersonDto> GetByIdAsync(int id)
     {
@@ -66,4 +87,11 @@ public class PersonService : IPersonService
 
         return isDeleted;
     }
+
+
+    public async Task SaveLocalFile(string filePath, IFormFile file)
+    {
+        await file.CopyToAsync(new FileStream(filePath, FileMode.Create));
+    }
+
 }

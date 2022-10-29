@@ -14,24 +14,28 @@ public class PersonController : AppBaseController
     }
 
     [HttpGet]
+    [ProducesResponseType(typeof(PersonDto), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetPersonList()
     {
         return Ok(await _iService.GetPersonListAsync());
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(PersonDto dto)
+    [ProducesResponseType(typeof(PersonDto), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Post([FromBody] PersonDto dto)
     {
         if (!ModelState.IsValid) return Ok(false);
         return Ok(await _iService.AddOrUpdate(dto));
     }
 
     [HttpGet("get-by-id/{id:int}")]
+    [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(int id)
     {
         return Ok(await _iService.GetByIdAsync(id));
     }
     [HttpDelete("delete/{id:int}")]
+    [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
     public async Task<IActionResult> Delete(int id)
     {
         if (id > 0 is false) return Ok(false);

@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\AppBaseControllers\" />
+    <Folder Include="wwwroot\Files\" />
   </ItemGroup>
 
 </Project>
