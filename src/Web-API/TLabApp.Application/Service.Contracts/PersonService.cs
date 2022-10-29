@@ -51,7 +51,7 @@ public class PersonService : IPersonService
     public async Task<bool> Add(PersonDto dto)
     {
 
-        if (dto.FileExtensionValidate()) return false;
+        if (dto.CheckFileExtensionValidate()) return false;
 
         var model = _iMapper.Map<Person>(dto);
         await _context.AddAsync(model);
@@ -92,9 +92,8 @@ public class PersonService : IPersonService
 
     public async Task<bool> DeleteAsync(int id)
     {
-
-        var isDeleted = _context.Database.ExecuteSqlRaw(string.Format("delete from SkillPersonMap where PersonId = '{0}'", id)) > 0;
-        isDeleted = await _context.Database.ExecuteSqlRawAsync(string.Format("delete from People where Id  = '{0}'", id)) > 0;
+        var isDeleted = _context.Database.ExecuteSqlRaw(string.Format("DELETE FROM SkillPersonMap WHERE PersonId = '{0}'", id)) > 0;
+        isDeleted = await _context.Database.ExecuteSqlRawAsync(string.Format("DELETE FROM People WHERE Id  = '{0}'", id)) > 0;
 
         return isDeleted;
     }
@@ -103,19 +102,12 @@ public class PersonService : IPersonService
     public async Task SaveLocalFile(string fileName, IFormFile file)
     {
         var outputDir = Path.Combine(Environment.CurrentDirectory, "wwwroot", "Files");
-        try
-        {
-            if (!Directory.Exists(outputDir)) Directory.CreateDirectory(outputDir);
-            outputDir = Path.Combine(outputDir, fileName);
+        if (!Directory.Exists(outputDir)) Directory.CreateDirectory(outputDir);
+        outputDir = Path.Combine(outputDir, fileName);
 
-            await using Stream fileStream = new FileStream(outputDir, FileMode.Create);
-            await file.CopyToAsync(fileStream);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        await using Stream fileStream = new FileStream(outputDir, FileMode.Create);
+        await file.CopyToAsync(fileStream);
+
     }
 
 }

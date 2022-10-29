@@ -29,7 +29,7 @@ namespace TLabApp.Application.Models
         public string? Skills { get; set; }
         public List<SkillPersonMapDto> SkillPersonMapList { get; } = new();
 
-        public bool FileExtensionValidate()
+        public bool CheckFileExtensionValidate()
         {
             if(ResumeFile == null) return true;
             var extension = ResumeFile?.Name != null ? Path.GetExtension(ResumeFile?.FileName) : string.Empty;
