@@ -52,4 +52,18 @@ public class PersonService : IPersonService
 
         return await _context.SaveChangesAsync() > 0;
     }
+
+    public async Task<PersonDto> GetByIdAsync(int id)
+    {
+        var person = await _context.People.FindAsync(id);
+        return _iMapper.Map<PersonDto>(person);
+    }
+
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var isDeleted = _context.Database.ExecuteSqlRaw("delete from SkillPersonMap where PersonId = '{0}'", 1) > 0;
+        isDeleted = await _context.Database.ExecuteSqlRawAsync("delete from People where Id  = '{0}'", 1) > 0;
+
+        return isDeleted;
+    }
 }

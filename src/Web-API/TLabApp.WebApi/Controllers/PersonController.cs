@@ -25,9 +25,16 @@ public class PersonController : AppBaseController
         if (!ModelState.IsValid) return Ok(false);
         return Ok(await _iService.AddOrUpdate(dto));
     }
-    /*[HttpGet("get-skill-list")]
-    public async Task<IActionResult> GetSkillList()
+
+    [HttpGet("get-by-id/{id:int}")]
+    public async Task<IActionResult> GetById(int id)
     {
-        return Ok(await _iService.GetSkillListAsync());
-    } */
+        return Ok(await _iService.GetByIdAsync(id));
+    }
+    [HttpDelete("delete/{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        if (id > 0 is false) return Ok(false);
+        return Ok(await _iService.DeleteAsync(id));
+    }
 }
