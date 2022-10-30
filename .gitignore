@@ -580,3 +580,5 @@ FodyWeavers.xsd
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode,webstorm,rider
 /src/Web-API/TLabApp.WebApi/wwwroot/Files
 /src/Web-API/TLabApp.WebApi/TLabDb.db
+/src/Web-API/TLabApp.WebApi/TLabDb.db-wal
+/src/Web-API/TLabApp.WebApi/TLabDb.db-shm
