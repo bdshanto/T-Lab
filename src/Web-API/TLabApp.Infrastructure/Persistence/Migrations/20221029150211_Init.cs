@@ -157,7 +157,7 @@ namespace TLabApp.Infrastructure.Persistence.Migrations
                 name: "IX_SkillPersonMap_SkillId",
                 table: "SkillPersonMap",
                 column: "SkillId");
-            AppDbContextInitializer.AuditAbleSeed();
+           
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

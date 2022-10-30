@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TLabApp.Domain.Entities;
+﻿using TLabApp.Domain.Entities;
 
 namespace TLabApp.Infrastructure.Persistence
 {
     public class AppDbContextInitializer
     {
-        public static async Task AuditAbleSeed()
+        public static void AuditAbleSeed()
         {
-            await using var db = new AppDbContext();
+            using var db = new AppDbContext();
             var countryList = new List<Country>
             {
                 new()
@@ -39,7 +34,7 @@ namespace TLabApp.Infrastructure.Persistence
                     }
                 }
             };
-            await db.Countries.AddRangeAsync(countryList);
+            db.Countries.AddRange(countryList);
 
             var skillList = new List<Skill>()
             {
@@ -49,9 +44,9 @@ namespace TLabApp.Infrastructure.Persistence
                 new(){Name = "PHP"},
                 new(){Name = "SQL"},
             };
-            await db.Skills.AddRangeAsync(skillList);
+            db.Skills.AddRange(skillList);
 
-            var isAdded = await db.SaveChangesAsync();
+            var isAdded = db.SaveChanges();
         }
     }
 }

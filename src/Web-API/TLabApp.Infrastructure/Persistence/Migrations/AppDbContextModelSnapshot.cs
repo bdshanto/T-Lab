@@ -245,7 +245,7 @@ namespace TLabApp.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("TLabApp.Domain.Entities.SkillPersonMap", b =>
                 {
                     b.HasOne("TLabApp.Domain.Entities.Person", "Person")
-                        .WithMany("Cities")
+                        .WithMany("SkillPersonMapList")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -268,7 +268,7 @@ namespace TLabApp.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("TLabApp.Domain.Entities.Person", b =>
                 {
-                    b.Navigation("Cities");
+                    b.Navigation("SkillPersonMapList");
                 });
 #pragma warning restore 612, 618
         }
