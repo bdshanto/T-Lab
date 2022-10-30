@@ -28,6 +28,7 @@ namespace TLabApp.Application.Models
         public DateTime DoB { get; set; }
         public string? Skills { get; set; }
         public List<SkillPersonMapDto> SkillPersonMapList { get; } = new();
+        public string Base64File { get; set; }
 
         public bool CheckFileExtensionValidate()
         {

@@ -1,1 +1,102 @@
-<p>person-list works!</p>
+<div class="container-fluid">
+  <section class="row">
+
+    <h3 class="d-flex">
+      <div style="color:#ff38f8; z-index: 4">
+        <mat-icon color="primary" fontIcon="assignment"></mat-icon>
+      </div>
+      Informations
+    </h3>
+  </section>
+  <section class="container-fluid">
+    <div>
+      <mat-table #table [dataSource]="dataSource">
+        <ng-container matColumnDef="sl">
+          <th style="width: 1rem; height:35px ;" *matHeaderCellDef> #</th>
+          <td style="width: 1rem; height:35px ;" *matCellDef="let element; let i = index"> {{i + 1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th style="width: 5rem; height:35px ;" *matHeaderCellDef> Name</th>
+          <td style="width: 5rem; height:35px ;" *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="country">
+          <th style="width: 10rem; height:35px ;" *matHeaderCellDef> Country</th>
+          <td style="width: 10rem; height:35px ;" *matCellDef="let element"> {{element.countryName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="city">
+          <th style="width: 10rem; height:35px ;" *matHeaderCellDef> City</th>
+          <td style="width: 10rem; height:35px ;" *matCellDef="let element"> {{element.cityName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="skills">
+          <th style="width: 15rem; height:35px ;" *matHeaderCellDef>Language skills</th>
+          <td style="width: 15rem; height:35px ;" *matCellDef="let element"> {{element.skills}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="resume">
+          <th style="width: 20rem; height:35px ;" *matHeaderCellDef> resume</th>
+          <td style="width: 20rem; height:35px ;" *matCellDef="let element"
+              matTooltip="element.resumeUrl">
+            <div class="d-flex">
+              <div> {{element.resumeUrl| stringLimit}}</div>
+              <button class="btn btn-success pr-2 pl-5"
+                      style=" margin-right: 5px !important;
+                      padding: 0px  !important;
+                      height: 28px  !important;"
+                      (click)="getResume(element.resumeUrl)"
+              >
+                <mat-icon fontIcon="download_for_offline" aria-hidden="false"></mat-icon>
+              </button>
+
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dob">
+          <th style="width: 10rem; height:35px ;" *matHeaderCellDef> Date of Birth</th>
+          <td style="width: 10rem; height:35px ;"
+              *matCellDef="let element"> {{element.doB |  date:'dd MMM yyyy' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="id">
+          <th style="width: 10rem; height:40px ;" *matHeaderCellDef> Actions</th>
+          <tr style="width: 10rem; height:40px ;" *matCellDef="let element" class="d-flex">
+
+
+            <button class="btn btn-primary pr-2"
+                    style=" margin-right: 5px !important;
+                      padding: 0px  !important;
+                      height: 28px  !important;"
+            >
+              <mat-icon fontIcon="preview" aria-hidden="false"></mat-icon>
+            </button>
+            <button class="btn btn-success pr-2 pl-2"
+                    style=" margin-right: 5px !important;
+                      padding: 0px  !important;
+                      height: 28px  !important;"
+            >
+              <mat-icon fontIcon="mode_edit"></mat-icon>
+            </button>
+            <button
+              class="btn btn-danger "
+                    style=" margin-right: 5px !important;
+                      padding: 0px  !important;
+                      height: 28px  !important;"
+                    (click)="openDialog()"
+            >
+              <mat-icon fontIcon="clear"></mat-icon>
+            </button>
+
+          </tr>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </section>
+
+</div>

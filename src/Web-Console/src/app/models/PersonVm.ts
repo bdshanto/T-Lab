@@ -14,3 +14,10 @@ export class PersonVm extends AuditAbleVm {
   skills: string = '';
   skillPersonMapList: SkillPersonMapVm[] = [];
 }
+
+export class FileModelVm {
+  fileName: string = '';
+  fileExtension: string = '';
+  base64String: string = '';
+  status: number = 0;
+}

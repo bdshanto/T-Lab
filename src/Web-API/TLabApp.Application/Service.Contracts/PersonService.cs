@@ -1,14 +1,11 @@
-﻿using System.Globalization;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using System.IO;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using TLabApp.Application.Common;
 using TLabApp.Application.Models;
 using TLabApp.Application.Service.IContracts;
 using TLabApp.Domain.Entities;
 using TLabApp.Infrastructure.Persistence;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace TLabApp.Application.Service.Contracts;
 
@@ -96,6 +93,23 @@ public class PersonService : IPersonService
         isDeleted = await _context.Database.ExecuteSqlRawAsync(string.Format("DELETE FROM People WHERE Id  = '{0}'", id)) > 0;
 
         return isDeleted;
+    }
+
+    public async Task<FileModel> GetFileByIdAsync(FileModel file)
+    {
+
+        if (string.IsNullOrEmpty(file.FileName)) return file;
+        var filePath = Path.Combine(Environment.CurrentDirectory, "wwwroot", "Files", file.FileName);
+        if (File.Exists(filePath))
+        {
+            var byteArr = await File.ReadAllBytesAsync(filePath);
+            string base64ImageRepresentation = Convert.ToBase64String(byteArr);
+            file.Base64String = base64ImageRepresentation;
+            file.GetExtension();
+        }
+
+        return file;
+
     }
 
 

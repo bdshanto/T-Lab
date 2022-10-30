@@ -33,6 +33,13 @@ public class PersonController : AppBaseController
     {
         return Ok(await _iService.GetByIdAsync(id));
     }
+   
+    [HttpPost("get-file-by-file-name")]
+    public async Task<IActionResult> GetFileById(FileModel file)
+    {
+        return Ok(await _iService.GetFileByIdAsync(file));
+    }
+
     [HttpDelete("delete/{id:int}")]
     [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
     public async Task<IActionResult> Delete(int id)
