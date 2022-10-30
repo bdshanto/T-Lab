@@ -6,6 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/confirmation-dialog.component';
 import { ScrollControlService } from 'src/app/services/scroll-control.service';
+import { PersonViewComponent } from 'src/app/Modules/people/person-view/person-view.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-person-list',
@@ -17,17 +19,23 @@ export class PersonListComponent implements OnInit {
   displayedColumns = ['sl', 'name', 'country', 'city', 'skills', 'resume', 'dob', 'id'];
   personList: PersonVm[] = [];
   dataSource = new MatTableDataSource<PersonVm>(this.personList);
+  isView: boolean = false;
 
   constructor(
     private service: PersonService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private scrService: ScrollControlService,
+    private router: Router
   ){
-
+    this.get();
   }
 
   ngOnInit(): void{
+
+  }
+
+  get(): void{
     this.service.get().subscribe((res) => {
       this.personList = res
       this.dataSource = new MatTableDataSource<PersonVm>(this.personList);
@@ -50,7 +58,25 @@ export class PersonListComponent implements OnInit {
     downloadLink.click();
   }
 
-  openDialog(){
+  edit(id: number): void{
+    this.router.navigate([`/person/edit/${id}`]);
+  }
+
+  view(id: number): void{
+    let person = new PersonVm();
+    person.id = id;
+    const confirmDialog = this.dialog.open(PersonViewComponent, {
+      data: person
+    });
+    confirmDialog.afterClosed().subscribe(result => {
+      if (result === true){
+        this.isView = false;
+
+      }
+    });
+  }
+
+  delete(id: number){
     const confirmDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Confirm Remove Employee',
@@ -59,6 +85,12 @@ export class PersonListComponent implements OnInit {
     });
     confirmDialog.afterClosed().subscribe(result => {
       if (result === true){
+        this.service.delete(id).subscribe(d => {
+          if (d){
+            this.get();
+          }
+        })
+
       }
     });
   }

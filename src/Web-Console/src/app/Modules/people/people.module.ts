@@ -9,12 +9,14 @@ import { PipesModule } from 'src/app/shared/common/pipes/pipes.module';
 import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/confirmation-dialog.component';
 import { ConfirmationModule } from 'src/app/core/components/confirm-dialog/confirmation.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PersonViewComponent } from './person-view/person-view.component';
 
 
 @NgModule({
   declarations: [
     PersonListComponent,
     AddPeopleComponent,
+    PersonViewComponent,
 
   ],
   imports: [
