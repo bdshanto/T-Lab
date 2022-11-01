@@ -13,8 +13,8 @@
     <div>
       <mat-table #table [dataSource]="dataSource">
         <ng-container matColumnDef="sl">
-          <th style="width: 1rem; height:35px ;" *matHeaderCellDef> #</th>
-          <td style="width: 1rem; height:35px ;" *matCellDef="let element; let i = index"> {{i + 1}} </td>
+          <th style="width: 2rem; height:35px ;" *matHeaderCellDef> #</th>
+          <td style="width: 2rem; height:35px ;" *matCellDef="let element; let i = index"> {{i + 1}} </td>
         </ng-container>
 
         <ng-container matColumnDef="name">

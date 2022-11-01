@@ -38,10 +38,9 @@ namespace TLabApp.Application.Models
         {
             if (ResumeFile == null) return true;
             var extension = ResumeFile?.Name != null ? Path.GetExtension(ResumeFile?.FileName) : string.Empty;
-            var isNotValid = !(extension != null && _extensions.Contains(extension.ToLower()));
-            if (!isNotValid) ResumeUrl = Utils.GenerateLocalUploadPath(ResumeFile);
+            ResumeUrl = Utils.GenerateLocalUploadPath(ResumeFile);
 
-            return isNotValid;
+            return false;
 
         }
     }

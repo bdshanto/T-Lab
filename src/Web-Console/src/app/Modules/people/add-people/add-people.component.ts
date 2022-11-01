@@ -125,7 +125,10 @@ export class AddPeopleComponent implements OnInit {
     this.model = {...this.model, ...form.value, skillPersonMapList: skillPersonMapList};
     console.log(this.model);
     this.service.post(this.model).subscribe(c => {
-      this.router.navigate([`/person/create`]);
+      if (c){
+        this.router.navigate([`/person`]);
+
+      }
     });
 
   }
