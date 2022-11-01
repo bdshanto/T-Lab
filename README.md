@@ -13,7 +13,7 @@ reactive form used to validate inputs.
 - Node version `16.18.0`
 
 # Project startup instruction
-clone this project and run below command in root directory of project.
+clone this project and run below command in root directory of project. <br/>
 `git clone git@github.com:bdshanto/T-Lab.git`
 
 **How to run backend**
