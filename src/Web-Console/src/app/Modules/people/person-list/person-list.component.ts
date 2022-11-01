@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, createComponent, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { FileModelVm, PersonVm } from 'src/app/models/PersonVm';
 import { PersonService } from 'src/app/services/person.service';
@@ -8,6 +8,7 @@ import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/c
 import { ScrollControlService } from 'src/app/services/scroll-control.service';
 import { PersonViewComponent } from 'src/app/Modules/people/person-view/person-view.component';
 import { Router } from '@angular/router';
+import { AddPeopleComponent } from 'src/app/Modules/people/add-people/add-people.component';
 
 @Component({
   selector: 'app-person-list',
@@ -60,11 +61,11 @@ export class PersonListComponent implements OnInit {
 
   edit(id: number): void{
     this.router.navigate([`/person/edit/${id}`]);
+
   }
 
   view(id: number): void{
-    let person = new PersonVm();
-    person.id = id;
+    const person = this.personList.find(c => c.id == id);
     const confirmDialog = this.dialog.open(PersonViewComponent, {
       data: person
     });

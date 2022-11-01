@@ -1,1 +1,95 @@
-<p>add-people works!</p>
+<body class="px-4 form-control">
+<form class="form" [formGroup]="form" (ngSubmit)="addOrUpdate(form)">
+  <div>
+    <mat-form-field class="col-md-12" appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name">
+      <mat-error *ngIf="form.get('name')?.hasError('required')">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+  <div class="pt-2">
+    <mat-form-field class="mat-form-field col-md-12" appearance="outline">
+      <mat-label>Country</mat-label>
+      <select matNativeControl formControlName="countryId">
+        <option value="">select</option>
+        <option *ngFor="let country of countryList" [value]="country.id">
+          {{country.name}}
+        </option>
+      </select>
+      <mat-error *ngIf="form.get('countryId')?.hasError('required')">
+        Country is required
+      </mat-error>
+    </mat-form-field>
+
+
+  </div>
+  <div class="pt-2">
+    <mat-form-field class="mat-form-field col-md-12" appearance="outline">
+      <mat-label>City</mat-label>
+      <select matNativeControl formControlName="cityId">
+        <option value="">select</option>
+        <option *ngFor="let country of cityList" [value]="country.id">
+          {{country.name}}
+        </option>
+      </select>
+      <mat-error *ngIf="form.get('cityId')?.hasError('required')">
+        City is required
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="pt-2 btn-outline">
+    Language Skills
+    <ul class="d-flex pr-5">
+      <li style="list-style-type: none;padding-right: 10px !important; " class="pr-5 " *ngFor="let item of skills">
+        <input type="checkbox" class="mat-checked" [checked]="item.checked" (click)="itemChecked(item.id, $event)"
+               [value]="item.id">{{item.name}}
+      </li>
+    </ul>
+    <span>
+      <p class="text-danger" *ngIf="isSkillSelected">
+        Language Skills is required
+      </p>
+    </span>
+  </div>
+  <div class="pt-2">
+
+    <mat-form-field class="col-md-12" appearance="outline">
+      <mat-label> Date Of Birth</mat-label>
+      <input class="form-contrl" matInput [matDatepicker]="picker" formControlName="doB">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="form.get('doB')?.hasError('required')">
+        Date Of Birth is required
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <div class="pt-2" *ngIf="!isEditing">
+    <label for="singleFile">Upload file</label>
+    <input type="file" id="singleFile" (change)="onFileChange($event)" multiple>
+    <div *ngIf="form.get('resumeFile')?.hasError('required')">
+      <p class="text-danger">
+        Resume is required
+      </p>
+    </div>
+
+    <div *ngIf="form.get('resumeFile')?.hasError('fileType')">
+      <p class="text-danger">
+        Only document and pdf type file is allowed.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-success">Save</button>
+  </div>
+</form>
+
+
+</body>

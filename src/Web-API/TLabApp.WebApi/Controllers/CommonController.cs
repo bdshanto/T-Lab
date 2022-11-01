@@ -18,7 +18,7 @@ public class CommonController : AppBaseController
         return Ok(await _iService.GetCountryListAsync());
     }
 
-    [HttpGet("get-city-list-By-country-id")]
+    [HttpGet("get-city-list-By-country-id/{countryId:int}")]
     public async Task<IActionResult> GetCityListByCountryId(int countryId)
     {
         if (countryId > 0 is false) return Ok(new List<CityDto>());

@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TLabApp.Application.Common
 {
@@ -20,9 +15,10 @@ namespace TLabApp.Application.Common
         }
         public static string GenerateLocalUploadPath(IFormFile file)
         {
-
-            var filePath = Path.Combine(DateTime.Now.ToString("u") + file.FileName);
-            return filePath.RemoveSpecialCharacters();
+            var randomString = DateTime.Now.ToBinary().ToString()[8..14];
+            var filePath = Path.Combine(randomString + file.FileName);
+            var name = filePath.RemoveSpecialCharacters();
+            return name;
         }
         public static string RemoveSpecialCharacters(this string str)
         {
@@ -61,6 +57,8 @@ namespace TLabApp.Application.Common
                     return string.Empty;
             }
         }
+
+
 
     }
 }

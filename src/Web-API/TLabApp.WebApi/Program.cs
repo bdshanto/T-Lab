@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
 using TLabApp.Application.DependencyServices;
 
@@ -10,6 +11,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.Configure<FormOptions>(o =>
+{
+    o.ValueLengthLimit = int.MaxValue;
+    o.MultipartBodyLengthLimit = int.MaxValue;
+    o.MemoryBufferThreshold = int.MaxValue;
+});
 builder.Services.AddCors(opt => opt.AddPolicy("CorsPolicy", c => c
     .AllowAnyOrigin()
     .AllowAnyHeader()
@@ -26,12 +33,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
-var path = Path.Combine(Environment.CurrentDirectory, "wwwroot", "Files").Replace(@"\", @"/");
-
 app.UseStaticFiles(new StaticFileOptions()
 {
-    FileProvider = new PhysicalFileProvider(Path.Combine(Environment.CurrentDirectory, "wwwroot", "Files")),
-    //RequestPath = new PathString(path)
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot")),
+    RequestPath = new PathString("/wwwroot")
 });
 app.UseHttpsRedirection();
 

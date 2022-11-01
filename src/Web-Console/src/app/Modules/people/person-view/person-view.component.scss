@@ -1,0 +1,16 @@
+.profile-container {
+  display: flex;
+  display: -webkit-flex;
+  flex: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+  align-items: flex-start;
+  border: 1px solid #420000;
+  border-radius: 3px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  width: 200px;
+  min-height: 300px;
+  max-height: 300px;
+}
