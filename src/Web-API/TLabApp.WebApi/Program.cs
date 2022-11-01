@@ -32,12 +32,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseDefaultFiles();
+var outputDir = Path.Combine(Environment.CurrentDirectory, "wwwroot", "Files");
+if (!Directory.Exists(outputDir)) Directory.CreateDirectory(outputDir);
 app.UseStaticFiles();
-app.UseStaticFiles(new StaticFileOptions()
-{
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot")),
-    RequestPath = new PathString("/wwwroot")
-});
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
