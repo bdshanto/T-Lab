@@ -14,7 +14,8 @@ reactive form used to validate inputs.
 
 # Project startup instruction
 clone this project and run below command in root directory of project. <br/>
-`git clone git@github.com:bdshanto/T-Lab.git`
+SSH `git clone git@github.com:bdshanto/T-Lab.git` <br/>
+HTTPS `git clone https://github.com/bdshanto/T-Lab.git`
 
 **How to run backend**
 
