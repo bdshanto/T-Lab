@@ -1,0 +1,45 @@
+<div  class="form-control p-2 mt-2  rounded ml-3 w-100  stats">
+  <p>Personal Information</p>
+  <hr>
+  <div class=" row ">
+    <div class="col-md-4 ">
+      <label>Name</label>
+    </div>
+    <div class="col-md-8">
+      <p>{{data.name}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <label>Country</label>
+    </div>
+    <div class="col-md-8">
+      <p>{{data.countryName}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <label>City</label>
+    </div>
+    <div class="col-md-8">
+      <p>{{data.cityName}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <label>Skills</label>
+    </div>
+    <div class="col-md-8">
+      <p>{{data.skills}}</p>
+    </div>
+  </div> <div class="row">
+    <div class="col-md-4">
+      <label>DoB</label>
+    </div>
+    <div class="col-md-8">
+      <p>{{data.doB | date: 'dd MMM yyyy'}}</p>
+    </div>
+  </div>
+
+
+</div>

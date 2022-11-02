@@ -8,4 +8,5 @@ public interface IPersonService
     Task<bool> AddOrUpdate(PersonDto dto);
     Task<PersonDto> GetByIdAsync(int id);
     Task<bool> DeleteAsync(int id);
+    Task<FileModel> GetFileByIdAsync(FileModel file);
 }

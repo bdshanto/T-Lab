@@ -1,14 +1,11 @@
-﻿using System.Globalization;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using System.IO;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using TLabApp.Application.Common;
 using TLabApp.Application.Models;
 using TLabApp.Application.Service.IContracts;
 using TLabApp.Domain.Entities;
 using TLabApp.Infrastructure.Persistence;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace TLabApp.Application.Service.Contracts;
 
@@ -67,7 +64,7 @@ public class PersonService : IPersonService
     public async Task<bool> Update(PersonDto dto)
     {
         var model = _iMapper.Map<Person>(dto);
-        var skillMapped = await _context.SkillPersonMap.Where(c => c.PersonId == dto.Id).ToListAsync();
+        var skillMapped = await _context.SkillPersonMap.AsNoTracking().Where(c => c.PersonId == dto.Id).ToListAsync();
 
         var addAble = new List<SkillPersonMap>();
         var removeAble = new List<SkillPersonMap>();
@@ -81,13 +78,27 @@ public class PersonService : IPersonService
         _context.SkillPersonMap.RemoveRange(removeAble);
         await _context.SkillPersonMap.AddRangeAsync(addAble);
 
-        return await _context.SaveChangesAsync() > 0;
+        var isUpdated = await _context.SaveChangesAsync() > 0;
+        return isUpdated;
+
     }
 
     public async Task<PersonDto> GetByIdAsync(int id)
     {
-        var person = await _context.People.FindAsync(id);
-        return _iMapper.Map<PersonDto>(person);
+        var person = await _context.People
+            .Include(c => c.City)
+            .Select(c => new PersonDto()
+            {
+                Id = c.Id,
+                Name = c.Name,
+                CityId = c.CityId,
+                CountryId = c.City.CountryId,
+                ResumeUrl = c.ResumeUrl,
+                SkillPersonMapList = _iMapper.Map<List<SkillPersonMapDto>>(c.SkillPersonMapList),
+                DoB = c.DoB,
+            }).FirstOrDefaultAsync(c => c.Id == id);
+
+        return person;
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -96,6 +107,23 @@ public class PersonService : IPersonService
         isDeleted = await _context.Database.ExecuteSqlRawAsync(string.Format("DELETE FROM People WHERE Id  = '{0}'", id)) > 0;
 
         return isDeleted;
+    }
+
+    public async Task<FileModel> GetFileByIdAsync(FileModel file)
+    {
+
+        if (string.IsNullOrEmpty(file.FileName)) return file;
+        var filePath = Path.Combine(Environment.CurrentDirectory, "wwwroot", "Files", file.FileName);
+        if (File.Exists(filePath))
+        {
+            var byteArr = await File.ReadAllBytesAsync(filePath);
+            string base64ImageRepresentation = Convert.ToBase64String(byteArr);
+            file.Base64String = base64ImageRepresentation;
+            file.GetExtension();
+        }
+
+        return file;
+
     }
 
 

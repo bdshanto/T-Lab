@@ -21,10 +21,10 @@ public class PersonController : AppBaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromForm] PersonDto dto)
+    public async Task<IActionResult> Post([FromForm] PersonDto person)
     {
         if (!ModelState.IsValid) return Ok(false);
-        return Ok(await _iService.AddOrUpdate(dto));
+        return Ok(await _iService.AddOrUpdate(person));
     }
 
     [HttpGet("get-by-id/{id:int}")]
@@ -33,6 +33,13 @@ public class PersonController : AppBaseController
     {
         return Ok(await _iService.GetByIdAsync(id));
     }
+   
+    [HttpPost("get-file-by-file-name")]
+    public async Task<IActionResult> GetFileById(FileModel file)
+    {
+        return Ok(await _iService.GetFileByIdAsync(file));
+    }
+
     [HttpDelete("delete/{id:int}")]
     [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
     public async Task<IActionResult> Delete(int id)

@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TLabApp.Application.Common
 {
@@ -20,9 +15,10 @@ namespace TLabApp.Application.Common
         }
         public static string GenerateLocalUploadPath(IFormFile file)
         {
-
-            var filePath = Path.Combine(DateTime.Now.ToString("u") + file.FileName);
-            return filePath.RemoveSpecialCharacters();
+            var randomString = DateTime.Now.ToBinary().ToString()[8..14];
+            var filePath = Path.Combine(randomString + file.FileName);
+            var name = filePath.RemoveSpecialCharacters();
+            return name;
         }
         public static string RemoveSpecialCharacters(this string str)
         {
@@ -32,6 +28,37 @@ namespace TLabApp.Application.Common
                     sb.Append(c);
             return sb.ToString();
         }
+        public static string GetFileExtension(string base64String)
+        {
+            var data = base64String.Substring(0, 5);
+
+            switch (data.ToUpper())
+            {
+                case "IVBOR":
+                    return "png";
+                case "/9J/4":
+                    return "jpg";
+                case "AAAAF":
+                    return "mp4";
+                case "JVBER":
+                    return "pdf";
+                case "AAABA":
+                    return "ico";
+                case "UMFYI":
+                    return "rar";
+                case "E1XYD":
+                    return "rtf";
+                case "U1PKC":
+                    return "txt";
+                case "MQOWM":
+                case "77U/M":
+                    return "srt";
+                default:
+                    return string.Empty;
+            }
+        }
+
+
 
     }
 }

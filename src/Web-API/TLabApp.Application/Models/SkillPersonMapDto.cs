@@ -2,9 +2,14 @@
 
 public class SkillPersonMapDto
 {
+    public SkillPersonMapDto()
+    {
+        SkillName = String.Empty;
+        PersonName = String.Empty;
+    }
     public int Id { get; set; }
     public int SkillId { get; set; }
-    public int SkillName { get; set; }
+    public string SkillName { get; set; }
     public int PersonId { get; set; }
-    public int PersonName { get; set; }
+    public string PersonName { get; set; }
 }

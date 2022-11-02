@@ -9,7 +9,7 @@ public static class ServiceCollectionExtension
 {
     public static IServiceCollection AddDependencyResolver(this IServiceCollection services)
     {
-        services.AddSingleton<AppDbContext>();
+        services.AddScoped<AppDbContext>();
         services.AddTransient<ICommonService, CommonService>();
         services.AddTransient<IPersonService, PersonService>();
 
