@@ -82,8 +82,8 @@ export class AddPeopleComponent implements OnInit {
       cityId: [this.model.cityId ?? 0 > 0 ? this.model.cityId : ''],
       countryId: [this.model.countryId ?? 0 > 0 ? this.model.countryId : ''],
       resumeUrl: [this.model.resumeUrl],
-      resumeFile: [this.model.resumeFile, Validators.required],
-      doB: [this.model.doB, Validators.required],
+      resumeFile:this.isEditing? [this.model.resumeFile]: [this.model.resumeFile, Validators.required],
+      doB: [this.model.doB,  Validators.required],
       skillPersonMapList: this.skillPersonMapList([]),
 
     });
