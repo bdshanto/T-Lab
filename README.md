@@ -1,8 +1,8 @@
 # T-Lab
 
-Build a web application CRUD operation using .NET Core for Web-API &amp; Angular framework Web-UI. It have included some
-special features like File-upload, download. File have some some specific type, that my allow to upload to host. Angular
-reactive form used to validate inputs.
+Build a web application CRUD operation using .NET Core for Web-API &amp; Angular framework Web-UI. It has included some
+special features like File-upload and download. Files have some specific type, that may allow uploading to the host. Angular
+reactive form used to validate inputs. Here use SQL Lite for a relational database, this project will be cross-platform and have no database dependency, using code first approach for database management. 
 
 **stack reference:**
 
@@ -11,6 +11,7 @@ reactive form used to validate inputs.
 - Angular Material `14`
 - Bootstrap `5`
 - Node version `16.18.0`
+- SQL Lite
 
 # Project startup instruction
 clone this project and run below command in root directory of project. <br/>
