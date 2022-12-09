@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLabApp.WebApi", "TLabApp.WebApi\TLabApp.WebApi.csproj", "{CDFFD8AA-C00E-426F-A2F0-0CDFC9804756}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TLabApp.WebApi", "TLabApp.WebApi\TLabApp.WebApi.csproj", "{CDFFD8AA-C00E-426F-A2F0-0CDFC9804756}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLabApp.Domain", "TLabApp.Domain\TLabApp.Domain.csproj", "{EA75E343-1712-447B-B441-806A6A024211}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TLabApp.Domain", "TLabApp.Domain\TLabApp.Domain.csproj", "{EA75E343-1712-447B-B441-806A6A024211}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLabApp.Infrastructure", "TLabApp.Infrastructure\TLabApp.Infrastructure.csproj", "{6C48D279-B87C-4E50-8B34-38504AD836F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TLabApp.Infrastructure", "TLabApp.Infrastructure\TLabApp.Infrastructure.csproj", "{6C48D279-B87C-4E50-8B34-38504AD836F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLabApp.Application", "TLabApp.Application\TLabApp.Application.csproj", "{4C5F367C-FAF2-468F-B40B-434753E5EE50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TLabApp.Application", "TLabApp.Application\TLabApp.Application.csproj", "{4C5F367C-FAF2-468F-B40B-434753E5EE50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLabApp.Console", "TLabApp.Console\TLabApp.Console.csproj", "{BA81FA3B-AE82-4EC3-BF3B-AB15B508FCBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,12 @@ Global
 		{4C5F367C-FAF2-468F-B40B-434753E5EE50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C5F367C-FAF2-468F-B40B-434753E5EE50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C5F367C-FAF2-468F-B40B-434753E5EE50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA81FA3B-AE82-4EC3-BF3B-AB15B508FCBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA81FA3B-AE82-4EC3-BF3B-AB15B508FCBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA81FA3B-AE82-4EC3-BF3B-AB15B508FCBB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BA81FA3B-AE82-4EC3-BF3B-AB15B508FCBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA81FA3B-AE82-4EC3-BF3B-AB15B508FCBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA81FA3B-AE82-4EC3-BF3B-AB15B508FCBB}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

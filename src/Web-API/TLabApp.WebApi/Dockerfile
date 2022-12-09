@@ -8,6 +8,9 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["TLabApp.WebApi/TLabApp.WebApi.csproj", "TLabApp.WebApi/"]
+COPY ["TLabApp.Application/TLabApp.Application.csproj", "TLabApp.Application/"]
+COPY ["TLabApp.Domain/TLabApp.Domain.csproj", "TLabApp.Domain/"]
+COPY ["TLabApp.Infrastructure/TLabApp.Infrastructure.csproj", "TLabApp.Infrastructure/"]
 RUN dotnet restore "TLabApp.WebApi/TLabApp.WebApi.csproj"
 COPY . .
 WORKDIR "/src/TLabApp.WebApi"

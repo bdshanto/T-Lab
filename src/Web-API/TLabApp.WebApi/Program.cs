@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.Extensions.FileProviders;
 using TLabApp.Application.DependencyServices;
 
 var builder = WebApplication.CreateBuilder(args);
